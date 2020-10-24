@@ -3,24 +3,20 @@ package JavaCatamaran;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 
-public class DrowingBobs {
+public class DrawingBobs implements IDrawing {
 
     private BobsEnum bobsNum = BobsEnum.ONE;
 
-    public void setBobsNum(int bobsNum) {
-        if(bobsNum==2){
-            this.bobsNum=BobsEnum.TWO;
+    public void setNum(int bobsNum) {
+        if (bobsNum == 2) {
+            this.bobsNum = BobsEnum.TWO;
         }
-        if(bobsNum==3){
-            this.bobsNum=BobsEnum.THREE;
+        if (bobsNum == 3) {
+            this.bobsNum = BobsEnum.THREE;
         }
     }
 
-    public BobsEnum getBobsEum() {
-        return bobsNum;
-    }
-
-    public void drawBobs(GraphicsContext gc, Color mainColor, float _startPosX, float _startPosY) {
+    public void drawing(GraphicsContext gc, Color mainColor, float _startPosX, float _startPosY) {
         gc.setFill(mainColor);
         switch (bobsNum) {
             case THREE:
@@ -35,11 +31,6 @@ public class DrowingBobs {
                 double[] ypointsFB = {_startPosY + 80, _startPosY + 100, _startPosY + 80};
                 gc.fillPolygon(xpointsFB, ypointsFB, xpointsFB.length);
                 gc.fillRect(_startPosX + 16, _startPosY + 16, 28, 50);
-            case ONE:
-                gc.fillRect(_startPosX + 44, _startPosY, 16, 80);
-                double[] xpointsSB = {_startPosX + 44, _startPosX + 52, _startPosX + 60};
-                double[] ypointsSB = {_startPosY + 80, _startPosY + 100, _startPosY + 80};
-                gc.fillPolygon(xpointsSB, ypointsSB, xpointsSB.length);
         }
     }
 }
