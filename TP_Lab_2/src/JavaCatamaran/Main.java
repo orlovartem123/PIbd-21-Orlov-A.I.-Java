@@ -1,4 +1,5 @@
 package JavaCatamaran;
+
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -11,7 +12,8 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource("FormCatamaran.fxml"));
         primaryStage.setTitle("Catamaran");
-        primaryStage.setScene(new Scene(root, 751, 508));
+        //751 508
+        primaryStage.setScene(new Scene(root, 910, 508));
         primaryStage.show();
     }
 
