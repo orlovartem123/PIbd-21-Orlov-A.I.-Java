@@ -4,10 +4,14 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
 
 public class Port<T extends ITransport, T1 extends IDrawing> {
 
-    private final ArrayList<T> _places;
+    private final List<T> _places;
+
+    private final int _maxCount;
 
     private final int pictureWidth;
 
@@ -22,36 +26,34 @@ public class Port<T extends ITransport, T1 extends IDrawing> {
     public Port(int picWidth, int picHeight) {
         int width = picWidth / _placeSizeWidth;
         int height = picHeight / _placeSizeHeight;
-        _places = new ArrayList<>(width * height);
-        for (int i = 0; i < width * height; i++) {
-            _places.add(null);
-        }
+        _maxCount = width * height;
+        _places = new LinkedList<>();
         pictureWidth = picWidth;
         pictureHeight = picHeight;
         parkingPlacesInRow = height;
     }
 
-    public boolean append(T boat) {
-        for (int i = 0; i < _places.size(); i++) {
-            if (_places.get(i) == null) {
-                _places.remove(i);
-                _places.add(i, boat);
-                int x = (i / parkingPlacesInRow) * _placeSizeWidth;
-                int y = (i - parkingPlacesInRow * (i / parkingPlacesInRow)) * _placeSizeHeight;
-                boat.SetPosition(x + 5, y + 5, pictureWidth, pictureHeight);
-                return true;
-            }
+    public T getObject(int index) {
+        if (index < -1 || index >= _places.size()) {
+            return null;
         }
-        return false;
+        return _places.get(index);
+    }
+
+    public boolean append(T boat) {
+        if (_places.size() >= _maxCount) {
+            return false;
+        }
+        _places.add(boat);
+        return true;
     }
 
     public T takeObject(int index) {
-        if (index >= _places.size() || index < 0) {
+        if (index < -1 || index >= _places.size()) {
             return null;
         }
         T boat = _places.get(index);
         _places.remove(index);
-        _places.add(index, null);
         return boat;
     }
 
@@ -65,10 +67,11 @@ public class Port<T extends ITransport, T1 extends IDrawing> {
 
     public void Draw(GraphicsContext gc) {
         DrawMarking(gc);
-        for (T place : _places) {
-            if (place != null) {
-                place.DrawTransport(gc);
-            }
+        for (int i = 0; i < _places.size(); ++i) {
+            int x = (i / parkingPlacesInRow) * _placeSizeWidth;
+            int y = (i - parkingPlacesInRow * (i / parkingPlacesInRow)) * _placeSizeHeight;
+            _places.get(i).SetPosition(x + 5, y + 5, pictureWidth, pictureHeight);
+            _places.get(i).DrawTransport(gc);
         }
     }
 
