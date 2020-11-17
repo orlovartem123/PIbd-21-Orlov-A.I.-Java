@@ -8,9 +8,9 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="backgroundPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="508.0" prefWidth="910.0" style="-fx-background-color: STEELBLUE;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="JavaCatamaran.Controller">
+<AnchorPane fx:id="backgroundPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="562.0" prefWidth="910.0" style="-fx-background-color: STEELBLUE;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="JavaCatamaran.CatamaranController">
    <children>
-      <Canvas fx:id="canvas" height="508.0" width="910.0" />
+      <Canvas fx:id="canvas" height="562.0" width="910.0" />
       <Button fx:id="buttonCreateCatamaran" layoutX="202.0" layoutY="14.0" mnemonicParsing="false" onAction="#buttonCreateCatamaranClick" prefHeight="41.0" prefWidth="174.0" text="Create Catamaran" textAlignment="CENTER" textOverrun="LEADING_ELLIPSIS">
          <font>
             <Font name="Candara Bold" size="17.0" />
