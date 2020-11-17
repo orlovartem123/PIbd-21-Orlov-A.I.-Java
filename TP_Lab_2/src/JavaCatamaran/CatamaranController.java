@@ -1,53 +1,22 @@
 package JavaCatamaran;
 
-import java.net.URL;
-import java.util.Random;
-import java.util.ResourceBundle;
-
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.canvas.Canvas;
-import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 
-public class Controller {
+import java.util.Random;
+
+public class CatamaranController {
 
     private ITransport boat;
 
     private SailForm sailForm = SailForm.TRIANGLE;
 
     @FXML
-    private CheckBox triangleCheck;
-
-    @FXML
-    private CheckBox diamondCheck;
-
-    @FXML
-    private ResourceBundle resources;
-
-    @FXML
-    private URL location;
-
-    @FXML
-    private AnchorPane backgroundPane;
-
-    @FXML
-    private Button buttonCreate;
-
-    @FXML
-    private Button buttonUp;
-
-    @FXML
-    private Button buttonLeft;
-
-    @FXML
-    private Button buttonRight;
-
-    @FXML
-    private Button buttonDown;
+    private CheckBox triangleCheck, diamondCheck;
 
     @FXML
     private TextField setBobsField;
@@ -55,18 +24,25 @@ public class Controller {
     @FXML
     private Canvas canvas;
 
-    private void Draw() {
-        var gc = canvas.getGraphicsContext2D();
-        boat.DrawTransport(gc);
+    public void setBoat(ITransport boat) {
+        this.boat = boat;
+        Draw();
     }
 
+    private void Draw() {
+        var gc = canvas.getGraphicsContext2D();
+        gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
+        if (boat != null) {
+            boat.DrawTransport(gc);
+        }
+    }
 
     @FXML
-    void buttonCreateCatamaranClick(ActionEvent event) {
+    void buttonCreateCatamaranClick() {
         int bobsNum = 1;
         try {
             bobsNum = Integer.parseInt(setBobsField.getText());
-        } catch (Exception e) {
+        } catch (Exception ignored) {
         }
         Random rnd = new Random();
         boat = new Catamaran(rnd.nextInt(300) + 100, rnd.nextInt(2000) + 1000, Color.FORESTGREEN, Color.RED, true, bobsNum, sailForm);
@@ -76,7 +52,7 @@ public class Controller {
     }
 
     @FXML
-    void buttonCreateBoatClick(ActionEvent event) {
+    void buttonCreateBoatClick() {
         Random rnd = new Random();
         boat = new Boat(rnd.nextInt(300) + 100, rnd.nextInt(2000) + 1000, Color.FORESTGREEN);
         boat.SetPosition(rnd.nextInt(100) + 10, rnd.nextInt(100) + 10, (int) canvas.getWidth(),

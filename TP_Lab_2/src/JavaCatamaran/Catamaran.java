@@ -9,14 +9,6 @@ public class Catamaran extends Boat {
 
     private IDrawing drawingSails;
 
-    public void setMaxSpeed(int speed) {
-        MaxSpeed = speed;
-    }
-
-    public int getMaxSpeed() {
-        return MaxSpeed;
-    }
-
     public Color DopColor;
 
     private boolean PassangerSeat;
@@ -38,7 +30,6 @@ public class Catamaran extends Boat {
 
     @Override
     public void DrawTransport(GraphicsContext gc) {
-        gc.clearRect(0, 0, _pictureWidth, _pictureHeight);
         super.DrawTransport(gc);
         drawingBobs.drawing(gc, MainColor, _startPosX, _startPosY);
         if (PassangerSeat) {

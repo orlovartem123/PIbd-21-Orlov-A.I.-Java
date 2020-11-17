@@ -58,12 +58,10 @@ public class Boat extends Vehicle {
 
     @Override
     public void DrawTransport(GraphicsContext gc) {
-        gc.clearRect(0, 0, _pictureWidth, _pictureHeight);
         gc.setFill(MainColor);
         gc.fillRect(_startPosX + 44, _startPosY, 16, 80);
         double[] xpointsSB = {_startPosX + 44, _startPosX + 52, _startPosX + 60};
         double[] ypointsSB = {_startPosY + 80, _startPosY + 100, _startPosY + 80};
         gc.fillPolygon(xpointsSB, ypointsSB, xpointsSB.length);
     }
-
 }

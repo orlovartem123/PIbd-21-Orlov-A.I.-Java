@@ -15,36 +15,11 @@ public abstract class Vehicle implements ITransport {
 
     public int MaxSpeed;
 
-    protected void setMaxSpeed(int speed){
-        MaxSpeed=speed;
-    }
-
-    public int getMaxSpeed(){
-        return MaxSpeed;
-    }
-
     public float Weight;
-
-    protected void setWeight(float weight){
-        Weight=weight;
-    }
-
-    public float getWeight(){
-        return Weight;
-    }
 
     public Color MainColor;
 
-    protected void setMainColor(Color color){
-        MainColor=color;
-    }
-
-    public Color getMainColor(){
-        return MainColor;
-    }
-
-
-    public void SetPosition(int x, int y, int width, int height){
+    public void SetPosition(int x, int y, int width, int height) {
         _startPosX = x;
         _startPosY = y;
         _pictureWidth = width;
