@@ -5,16 +5,16 @@ import javafx.scene.paint.Color;
 
 public class Boat extends Vehicle {
 
-    public final int boatWidth;//104
+    private int boatWidth = 104;//104
 
-    public final int boatHeight;//100
+    private int boatHeight = 100;//100
+
+    protected final String separator = ";";
 
     public Boat(int maxSpeed, float weight, Color mainColor) {
         MaxSpeed = maxSpeed;
         Weight = weight;
         MainColor = mainColor;
-        boatWidth = 104;
-        boatHeight = 100;
     }
 
     protected Boat(int maxSpeed, float weight, Color mainColor, int boatWidth, int
@@ -25,6 +25,16 @@ public class Boat extends Vehicle {
         this.boatWidth = boatWidth;
         this.boatHeight = boatHeight;
     }
+
+    public Boat(String info) {
+        String[] strings = info.split(separator);
+        if (strings.length == 3) {
+            MaxSpeed = Integer.parseInt(strings[0]);
+            Weight = Float.parseFloat(strings[1]);
+            MainColor = Color.valueOf(strings[2]);
+        }
+    }
+
 
     public void MoveTransport(Direction direction) {
         float step = MaxSpeed * 100 / Weight;
@@ -63,5 +73,16 @@ public class Boat extends Vehicle {
         double[] xpointsSB = {_startPosX + 44, _startPosX + 52, _startPosX + 60};
         double[] ypointsSB = {_startPosY + 80, _startPosY + 100, _startPosY + 80};
         gc.fillPolygon(xpointsSB, ypointsSB, xpointsSB.length);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder result = new StringBuilder("");
+        result.append(MaxSpeed);
+        result.append(separator);
+        result.append(Weight);
+        result.append(separator);
+        result.append(MainColor.toString());
+        return result.toString();
     }
 }

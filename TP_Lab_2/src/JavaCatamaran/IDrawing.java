@@ -7,6 +7,10 @@ public interface IDrawing {
 
     void setNum(int num);
 
+    int getNum();
+
+    SailForm getSailForm();
+
     void drawing(GraphicsContext gc, Color color, float _startPosX, float _startPosY);
 
 }

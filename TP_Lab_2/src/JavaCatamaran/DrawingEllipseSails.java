@@ -18,6 +18,14 @@ public class DrawingEllipseSails implements IDrawing, Serializable {
         }
     }
 
+    public int getNum() {
+        return sailNum;
+    }
+
+    public SailForm getSailForm() {
+        return SailForm.ELLIPSE;
+    }
+
     public void drawing(GraphicsContext gc, Color mainColor, float _startPosX, float _startPosY) {
         gc.setFill(mainColor);
         switch (sailNum) {
