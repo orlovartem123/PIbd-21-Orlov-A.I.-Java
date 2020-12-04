@@ -5,37 +5,66 @@ import javafx.scene.paint.Color;
 
 public class Catamaran extends Boat {
 
-    private IDrawing drawingBobs;
-
     private IDrawing drawingSails;
+
+    public void setDrawingSails(IDrawing drawing) {
+        drawingSails = drawing;
+    }
 
     public Color DopColor;
 
     private boolean PassangerSeat;
 
+    private boolean Bobs;
+
+    private boolean Sails;
+
     public Catamaran(int maxSpeed, float weight, Color mainColor, Color dopColor,
-                     boolean seats, int bobsNum, SailForm sailForm) {
+                     boolean seats, boolean bobs, boolean sails, int sailsNum, SailForm sailForm) {
         super(maxSpeed, weight, mainColor, 104, 100);
         DopColor = dopColor;
         PassangerSeat = seats;
-        drawingBobs = new DrawingBobs();
-        drawingBobs.setNum(bobsNum);
-        if (sailForm == SailForm.TRIANGLE) {
-            drawingSails = new DrawingTriangleSails();
-        } else {
-            drawingSails = new DrawingDiamondSails();
+        Bobs = bobs;
+        Sails = sails;
+        switch (sailForm) {
+            case ELLIPSE:
+                drawingSails = new DrawingEllipseSails();
+                break;
+            case DIAMOND:
+                drawingSails = new DrawingDiamondSails();
+                break;
+            case TRIANGLE:
+                drawingSails = new DrawingTriangleSails();
+                break;
         }
-        drawingSails.setNum(bobsNum);
+        drawingSails.setNum(sailsNum);
     }
 
     @Override
     public void DrawTransport(GraphicsContext gc) {
         super.DrawTransport(gc);
-        drawingBobs.drawing(gc, MainColor, _startPosX, _startPosY);
+        if (Bobs) {
+            gc.fillRect(_startPosX + 60, _startPosY + 16, 28, 50);
+            gc.fillRect(_startPosX + 88, _startPosY, 16, 80);
+            double[] xpointsTB = {_startPosX + 88, _startPosX + 96, _startPosX + 104};
+            double[] ypointsTB = {_startPosY + 80, _startPosY + 100, _startPosY + 80};
+            gc.fillPolygon(xpointsTB, ypointsTB, xpointsTB.length);
+            gc.fillRect(_startPosX, _startPosY, 16, 80);
+            double[] xpointsFB = {_startPosX, _startPosX + 8, _startPosX + 16};
+            double[] ypointsFB = {_startPosY + 80, _startPosY + 100, _startPosY + 80};
+            gc.fillPolygon(xpointsFB, ypointsFB, xpointsFB.length);
+            gc.fillRect(_startPosX + 16, _startPosY + 16, 28, 50);
+        }
         if (PassangerSeat) {
             gc.setFill(DopColor);
-            gc.fillRect(_startPosX + 46, _startPosY + 20, 12, 20);
+            gc.fillRect(_startPosX + 46, _startPosY + 40, 12, 18);
         }
-        drawingSails.drawing(gc, Color.WHITESMOKE, _startPosX, _startPosY);
+        if (Sails) {
+            drawingSails.drawing(gc, Color.WHITESMOKE, _startPosX, _startPosY);
+        }
+    }
+
+    public void SetDopColor(Color color) {
+        DopColor = color;
     }
 }
