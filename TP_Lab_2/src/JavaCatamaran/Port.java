@@ -3,7 +3,6 @@ package JavaCatamaran;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -57,6 +56,10 @@ public class Port<T extends ITransport, T1 extends IDrawing> {
         return boat;
     }
 
+    public void clearList() {
+        _places.clear();
+    }
+
     public boolean isBiggerThan(Port<T, T1> port) {
         return _places.size() > port._places.size();
     }
@@ -83,5 +86,12 @@ public class Port<T extends ITransport, T1 extends IDrawing> {
             }
             gc.strokeLine(i * _placeSizeWidth, 0, i * _placeSizeWidth, (pictureHeight / _placeSizeHeight) * _placeSizeHeight);
         }
+    }
+
+    public T GetNext(int index) {
+        if (index < 0 || index >= _places.size()) {
+            return null;
+        }
+        return _places.get(index);
     }
 }

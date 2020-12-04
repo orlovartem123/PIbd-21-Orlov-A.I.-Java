@@ -18,6 +18,14 @@ public class DrawingDiamondSails implements IDrawing, Serializable {
         }
     }
 
+    public int getNum() {
+        return sailNum;
+    }
+
+    public SailForm getSailForm() {
+        return SailForm.DIAMOND;
+    }
+
     public void drawing(GraphicsContext gc, Color mainColor, float _startPosX, float _startPosY) {
         gc.setFill(mainColor);
         switch (sailNum) {

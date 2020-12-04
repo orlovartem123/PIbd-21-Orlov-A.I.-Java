@@ -11,11 +11,12 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.paint.Color;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import javafx.stage.Window;
 
+import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Optional;
 import java.util.Stack;
 
@@ -36,6 +37,9 @@ public class PortController implements AddBoatListener {
     private PortCollection portCollection;
 
     private Stack<ITransport> boatStack = new Stack<>();
+
+    private FileChooser fileChooser = new FileChooser();
+
 
     private void Draw() {
         GraphicsContext gr = canvasPort.getGraphicsContext2D();
@@ -154,7 +158,112 @@ public class PortController implements AddBoatListener {
     }
 
     @FXML
+    void saveMenuItemClick() {
+        Window stage = canvasPort.getScene().getWindow();
+        fileChooser.setTitle("Save port");
+        fileChooser.setInitialFileName("");
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("text files", "*.txt"));
+        try {
+            File file = fileChooser.showSaveDialog(stage);
+            if (portCollection.SaveData(file.getAbsolutePath())) {
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Message");
+                alert.setHeaderText(null);
+                alert.setContentText("Done!");
+                alert.showAndWait();
+            } else {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error");
+                alert.setHeaderText(null);
+                alert.setContentText("Failed to save ports");
+                alert.showAndWait();
+            }
+        } catch (Exception e) {
+        }
+    }
+
+    @FXML
+    void loadMenuItemClick() {
+        Window stage = canvasPort.getScene().getWindow();
+        fileChooser.setTitle("Load port");
+        fileChooser.setInitialFileName("");
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("text files", "*.txt"));
+        try {
+            File file = fileChooser.showOpenDialog(stage);
+            if (portCollection.LoadData(file.getAbsolutePath())) {
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Message");
+                alert.setHeaderText(null);
+                alert.setContentText("Done!");
+                alert.showAndWait();
+                ReloadLevels();
+                Draw();
+            } else {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error");
+                alert.setHeaderText(null);
+                alert.setContentText("Failed to load ports");
+                alert.showAndWait();
+            }
+        } catch (Exception e) {
+        }
+    }
+
+    @FXML
+    void savePortMenuClick() {
+        Window stage = canvasPort.getScene().getWindow();
+        fileChooser.setTitle("Save port");
+        fileChooser.setInitialFileName("");
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("text files", "*.txt"));
+        try {
+            File file = fileChooser.showSaveDialog(stage);
+            if (portCollection.savePort(file.getAbsolutePath(), listBoxPorts.getSelectionModel().getSelectedItem())) {
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Message");
+                alert.setHeaderText(null);
+                alert.setContentText("Done!");
+                alert.showAndWait();
+            } else {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error");
+                alert.setHeaderText(null);
+                alert.setContentText("Failed to save port");
+                alert.showAndWait();
+            }
+        } catch (Exception e) {
+        }
+    }
+
+    @FXML
+    void loadPortMenuItemClick() {
+        Window stage = canvasPort.getScene().getWindow();
+        fileChooser.setTitle("Load port");
+        fileChooser.setInitialFileName("");
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("text files", "*.txt"));
+        try {
+            File file = fileChooser.showOpenDialog(stage);
+            if (portCollection.loadPort(file.getAbsolutePath())) {
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Message");
+                alert.setHeaderText(null);
+                alert.setContentText("Done!");
+                alert.showAndWait();
+                ReloadLevels();
+                Draw();
+            } else {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error");
+                alert.setHeaderText(null);
+                alert.setContentText("Failed to load port");
+                alert.showAndWait();
+            }
+        } catch (Exception e) {
+        }
+    }
+
+    @FXML
     void initialize() {
+        fileChooser.setInitialDirectory(new File("D:\\"));
         portCollection = new PortCollection((int) canvasPort.getWidth(), (int) canvasPort.getHeight());
         listBoxPorts.getSelectionModel().selectedIndexProperty().addListener((observable, oldValue, newValue) -> {
             if (!newValue.equals(-1)) {

@@ -40,6 +40,33 @@ public class Catamaran extends Boat {
         drawingSails.setNum(sailsNum);
     }
 
+    public Catamaran(String info) {
+        super(info);
+        String[] strings = info.split(separator);
+        if (strings.length == 9) {
+            MaxSpeed = Integer.parseInt(strings[0]);
+            Weight = Float.parseFloat(strings[1]);
+            MainColor = Color.valueOf(strings[2]);
+            DopColor = Color.valueOf(strings[3]);
+            PassangerSeat = Boolean.parseBoolean(strings[4]);
+            Bobs = Boolean.parseBoolean(strings[5]);
+            Sails = Boolean.parseBoolean(strings[6]);
+            drawingSails = new DrawingDiamondSails();
+            switch (strings[7]) {
+                case "ELLIPSE":
+                    drawingSails = new DrawingEllipseSails();
+                    break;
+                case "DIAMOND":
+                    drawingSails = new DrawingDiamondSails();
+                    break;
+                case "TRIANGLE":
+                    drawingSails = new DrawingTriangleSails();
+                    break;
+            }
+            drawingSails.setNum(Integer.parseInt(strings[8]));
+        }
+    }
+
     @Override
     public void DrawTransport(GraphicsContext gc) {
         super.DrawTransport(gc);
@@ -67,4 +94,24 @@ public class Catamaran extends Boat {
     public void SetDopColor(Color color) {
         DopColor = color;
     }
+
+    @Override
+    public String toString() {
+        StringBuilder result = new StringBuilder("");
+        result.append(super.toString());
+        result.append(separator);
+        result.append(DopColor.toString());
+        result.append(separator);
+        result.append(PassangerSeat);
+        result.append(separator);
+        result.append(Bobs);
+        result.append(separator);
+        result.append(Sails);
+        result.append(separator);
+        result.append(drawingSails.getSailForm());
+        result.append(separator);
+        result.append(drawingSails.getNum());
+        return result.toString();
+    }
+
 }

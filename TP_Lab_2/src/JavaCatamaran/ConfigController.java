@@ -1,15 +1,14 @@
 package JavaCatamaran;
 
 import javafx.event.EventHandler;
-import javafx.fxml.FXML;
-import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.*;
 import javafx.scene.input.*;
+import javafx.fxml.FXML;
+import javafx.scene.canvas.Canvas;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
-
 
 public class ConfigController {
 
