@@ -19,7 +19,7 @@ public class CatamaranController {
     private CheckBox triangleCheck, diamondCheck;
 
     @FXML
-    private TextField setBobsField;
+    private TextField setSailsField;
 
     @FXML
     private Canvas canvas;
@@ -39,13 +39,13 @@ public class CatamaranController {
 
     @FXML
     void buttonCreateCatamaranClick() {
-        int bobsNum = 1;
+        int sailsNum = 1;
         try {
-            bobsNum = Integer.parseInt(setBobsField.getText());
+            sailsNum = Integer.parseInt(setSailsField.getText());
         } catch (Exception ignored) {
         }
         Random rnd = new Random();
-        boat = new Catamaran(rnd.nextInt(300) + 100, rnd.nextInt(2000) + 1000, Color.FORESTGREEN, Color.RED, true, bobsNum, sailForm);
+        boat = new Catamaran(rnd.nextInt(300) + 100, rnd.nextInt(2000) + 1000, Color.FORESTGREEN, Color.RED, true, true, true, sailsNum, sailForm);
         boat.SetPosition(rnd.nextInt(100) + 10, rnd.nextInt(100) + 10, (int) canvas.getWidth(),
                 (int) canvas.getHeight());
         Draw();

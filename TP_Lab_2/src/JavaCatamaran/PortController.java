@@ -15,10 +15,11 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Optional;
 import java.util.Stack;
 
-public class PortController {
+public class PortController implements AddBoatListener {
 
     @FXML
     private AnchorPane formPortPane;
@@ -91,42 +92,22 @@ public class PortController {
         }
     }
 
-    @FXML
-    void buttonSetBoatClick() throws IOException {
-        Color dialogColor = ColorPickerBox.display(formPortPane);
-        if (!ColorPickerBox.isCanceled) {
-            var boat = new Boat(100, 1000, dialogColor);
-            if (portCollection.getPort(listBoxPorts.getSelectionModel().getSelectedItem()).append(boat)) {
-                Draw();
-            } else {
-                Alert alert = new Alert(Alert.AlertType.WARNING);
-                alert.setTitle(null);
-                alert.setHeaderText(null);
-                alert.setContentText("Parking is full");
-                alert.showAndWait();
-            }
-        }
-    }
 
     @FXML
-    void buttonSetCatamaranClick() throws IOException {
-        Color dialogMainColor = ColorPickerBox.display(formPortPane);
-        if (!ColorPickerBox.isCanceled) {
-            Color dialogDopColor = ColorPickerBox.display(formPortPane);
-            if (!ColorPickerBox.isCanceled) {
-                var boat = new Catamaran(100, 1000, dialogMainColor, dialogDopColor, true, 3, SailForm.DIAMOND);
-                if (portCollection.getPort(listBoxPorts.getSelectionModel().getSelectedItem()).append(boat)) {
-                    Draw();
-                } else {
-                    Alert alert = new Alert(Alert.AlertType.WARNING);
-                    alert.setTitle(null);
-                    alert.setHeaderText(null);
-                    alert.setContentText("Parking is full");
-                    alert.showAndWait();
-                }
-            }
-        }
+    void buttonAddBoatClick() throws IOException {
+        FXMLLoader loader = new FXMLLoader(PortController.class.getResource("FormBoatConfig.fxml"));
+        Parent root = loader.load();
+        Stage stage = new Stage();
+        stage.setScene(new Scene(root));
+        //end loading
+        ConfigController configController = loader.getController();
+        configController.AddEvent(this);
+        formPortPane.setDisable(true);
+        stage.showAndWait();
+        formPortPane.setDisable(false);
+        stage.close();
     }
+
 
     @FXML
     void buttonTakeBoatClick() {
@@ -155,6 +136,20 @@ public class PortController {
             stage.setAlwaysOnTop(false);
             formPortPane.setDisable(false);
             stage.close();
+        }
+    }
+
+    public void addBoat(Vehicle boat) {
+        if (boat != null && listBoxPorts.getSelectionModel().getSelectedIndex() > -1) {
+            if (portCollection.getPort(listBoxPorts.getSelectionModel().getSelectedItem()).append(boat)) {
+                Draw();
+            } else {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error");
+                alert.setHeaderText(null);
+                alert.setContentText("Cant moor transport");
+                alert.showAndWait();
+            }
         }
     }
 
