@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.canvas.Canvas?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.Spinner?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="backgroundPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="366.0" prefWidth="698.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.JavaCatamaran.ConfigController">
+   <children>
+      <Pane fx:id="paneType" layoutX="14.0" layoutY="14.0" prefHeight="178.0" prefWidth="160.0" style="-fx-border-color: black;">
+         <children>
+            <Label layoutX="9.0" layoutY="6.0" text="Type" />
+            <Label fx:id="labelBoat" alignment="CENTER" layoutX="22.0" layoutY="45.0" onDragDetected="#labelBoatHandleDragDetection" prefHeight="38.0" prefWidth="118.0" style="-fx-border-color: black;" text="Boat" textAlignment="RIGHT" textOverrun="CENTER_WORD_ELLIPSIS">
+               <font>
+                  <Font size="19.0" />
+               </font>
+            </Label>
+            <Label fx:id="labelCatamaran" alignment="CENTER" layoutX="22.0" layoutY="101.0" onDragDetected="#labelCatamaranHandleDragDetection" prefHeight="38.0" prefWidth="118.0" style="-fx-border-color: black;" text="Catamaran" textAlignment="RIGHT" textOverrun="CENTER_WORD_ELLIPSIS">
+               <font>
+                  <Font size="19.0" />
+               </font>
+            </Label>
+         </children>
+      </Pane>
+      <Pane fx:id="paneParams" layoutX="14.0" layoutY="206.0" prefHeight="146.0" prefWidth="360.0" style="-fx-border-color: black;">
+         <children>
+            <Label layoutX="6.0" layoutY="6.0" text="Parameters" />
+            <Spinner fx:id="spinnerSpeed" layoutX="74.0" layoutY="48.0" prefHeight="25.0" prefWidth="59.0" />
+            <Spinner fx:id="spinnerWeight" layoutX="74.0" layoutY="96.0" prefHeight="17.0" prefWidth="59.0" />
+            <Label layoutX="43.0" layoutY="31.0" text="Max. speed" />
+            <Label layoutX="43.0" layoutY="79.0" text="Max. weight" />
+            <CheckBox fx:id="checkBoxBobs" layoutX="160.0" layoutY="52.0" mnemonicParsing="false" selected="true" text="Bobs" />
+            <CheckBox fx:id="checkBoxPasSets" layoutX="160.0" layoutY="79.0" mnemonicParsing="false" selected="true" text="Passenger seats" />
+            <RadioButton fx:id="oneSailRadio" layoutX="282.0" layoutY="52.0" mnemonicParsing="false" selected="true" text="1 sail">
+               <toggleGroup>
+                  <ToggleGroup fx:id="sailsNumRadio" />
+               </toggleGroup>
+            </RadioButton>
+            <RadioButton fx:id="twoSailsRadio" layoutX="282.0" layoutY="79.0" mnemonicParsing="false" text="2 sails" toggleGroup="$sailsNumRadio" />
+            <CheckBox fx:id="checkBoxSails" layoutX="160.0" layoutY="106.0" mnemonicParsing="false" selected="true" text="Sails" />
+         </children>
+      </Pane>
+      <Pane fx:id="paneColors" layoutX="388.0" layoutY="14.0" prefHeight="178.0" prefWidth="296.0" style="-fx-border-color: black;">
+         <children>
+            <Label fx:id="labelMainColor" alignment="CENTER" layoutX="29.0" layoutY="14.0" onDragDropped="#labelMainColorHandleDrop" onDragOver="#labelColorHandleDragOver" prefHeight="38.0" prefWidth="105.0" style="-fx-border-color: black;" text="Main Color" textAlignment="RIGHT" textOverrun="CENTER_WORD_ELLIPSIS">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <Label fx:id="labelDopColor" alignment="CENTER" layoutX="163.0" layoutY="14.0" onDragDropped="#labelDopColorHandleDrop" onDragOver="#labelColorHandleDragOver" prefHeight="38.0" prefWidth="105.0" style="-fx-border-color: black;" text="Dop Color" textAlignment="RIGHT" textOverrun="CENTER_WORD_ELLIPSIS">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <Pane fx:id="panelRed" layoutX="29.0" layoutY="64.0" prefHeight="38.0" prefWidth="38.0" style="-fx-background-color: red; -fx-border-color: black;" />
+            <Pane fx:id="panelGray" layoutX="29.0" layoutY="113.0" prefHeight="38.0" prefWidth="38.0" style="-fx-background-color: gray; -fx-border-color: black;" />
+            <Pane fx:id="panelLime" layoutX="96.0" layoutY="64.0" prefHeight="38.0" prefWidth="38.0" style="-fx-background-color: lime; -fx-border-color: black;" />
+            <Pane fx:id="panelYellow" layoutX="96.0" layoutY="113.0" prefHeight="38.0" prefWidth="38.0" style="-fx-background-color: yellow; -fx-border-color: black;" />
+            <Pane fx:id="panelBlue" layoutX="163.0" layoutY="64.0" prefHeight="38.0" prefWidth="38.0" style="-fx-background-color: blue; -fx-border-color: black;" />
+            <Pane fx:id="panelBlack" layoutX="163.0" layoutY="113.0" prefHeight="38.0" prefWidth="38.0" style="-fx-background-color: black; -fx-border-color: black;" />
+            <Pane fx:id="panelFuchsia" layoutX="230.0" layoutY="64.0" prefHeight="38.0" prefWidth="38.0" style="-fx-background-color: Fuchsia; -fx-border-color: black;" />
+            <Pane fx:id="panelWhite" layoutX="230.0" layoutY="113.0" prefHeight="38.0" prefWidth="38.0" style="-fx-background-color: white; -fx-border-color: black;" />
+         </children>
+      </Pane>
+      <Pane fx:id="paneSailForm" layoutX="389.0" layoutY="206.0" prefHeight="146.0" prefWidth="142.0" style="-fx-border-color: black;">
+         <children>
+            <Label layoutX="7.0" layoutY="6.0" text="Sail Form" />
+            <Label fx:id="labelDiamondSail" alignment="CENTER" layoutX="12.0" layoutY="31.0" onDragDetected="#labelSailsHandleDragDetection" prefHeight="27.0" prefWidth="118.0" style="-fx-border-color: black;" text="Diamond" textAlignment="CENTER">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <Label fx:id="labelTriangleSail" alignment="CENTER" layoutX="12.0" layoutY="66.0" onDragDetected="#labelSailsHandleDragDetection" prefHeight="27.0" prefWidth="118.0" style="-fx-border-color: black;" text="Triangle" textAlignment="CENTER">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <Label fx:id="labelEllipseSail" alignment="CENTER" layoutX="12.0" layoutY="99.0" onDragDetected="#labelSailsHandleDragDetection" prefHeight="27.0" prefWidth="118.0" style="-fx-border-color: black;" text="Ellipse" textAlignment="CENTER">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+         </children>
+      </Pane>
+      <Button fx:id="buttonAdd" layoutX="552.0" layoutY="233.0" mnemonicParsing="false" onAction="#buttonAddClick" prefHeight="38.0" prefWidth="132.0" text="Add" />
+      <Button fx:id="buttonCancel" layoutX="552.0" layoutY="285.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="132.0" text="Cancel" />
+      <Pane fx:id="paneBoat" layoutX="190.0" layoutY="14.0" prefHeight="178.0" prefWidth="183.0" style="-fx-border-color: black;">
+         <children>
+            <Canvas fx:id="canvasBoat" height="178.0" onDragDropped="#canvasBoatHandleDrop" onDragOver="#canvasBoatHandleDragOver" width="183.0" />
+         </children>
+      </Pane>
+   </children>
+</AnchorPane>
