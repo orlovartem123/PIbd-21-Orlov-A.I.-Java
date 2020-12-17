@@ -12,5 +12,4 @@ public interface IDrawing {
     SailForm getSailForm();
 
     void drawing(GraphicsContext gc, Color color, float _startPosX, float _startPosY);
-
 }

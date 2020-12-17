@@ -1,4 +1,5 @@
 package org.JavaCatamaran;
+
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 

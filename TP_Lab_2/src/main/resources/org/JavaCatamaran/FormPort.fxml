@@ -15,7 +15,7 @@
 <AnchorPane fx:id="formPortPane" prefHeight="562.0" prefWidth="1048.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.JavaCatamaran.PortController">
    <children>
       <Canvas fx:id="canvasPort" height="535.0" layoutY="27.0" width="910.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="27.0" />
-      <Pane layoutX="926.0" layoutY="393.0" prefHeight="122.0" prefWidth="108.0" style="-fx-border-color: black;">
+      <Pane layoutX="926.0" layoutY="426.0" prefHeight="122.0" prefWidth="108.0" style="-fx-border-color: black;">
          <children>
             <Label layoutX="14.0" layoutY="6.0" text="Take transport" />
             <Label layoutX="14.0" layoutY="42.0" text="Place" />
@@ -28,8 +28,8 @@
       <Button fx:id="buttonAddPort" layoutX="926.0" layoutY="92.0" mnemonicParsing="false" onAction="#buttonAddPortClick" prefHeight="25.0" prefWidth="108.0" text="Add port" />
       <ListView fx:id="listBoxPorts" layoutX="926.0" layoutY="125.0" prefHeight="122.0" prefWidth="108.0" />
       <Button fx:id="buttonDelPort" layoutX="926.0" layoutY="256.0" mnemonicParsing="false" onAction="#buttonDelPortClick" prefHeight="25.0" prefWidth="108.0" text="Delete port" />
-      <Button fx:id="buttonDrive" layoutX="926.0" layoutY="297.0" mnemonicParsing="false" onAction="#buttonDriveClick" prefHeight="35.0" prefWidth="108.0" text="Drive" />
-      <Button fx:id="buttonAddBoat" layoutX="926.0" layoutY="344.0" mnemonicParsing="false" onAction="#buttonAddBoatClick" prefHeight="35.0" prefWidth="108.0" text="Add" />
+      <Button fx:id="buttonDrive" layoutX="926.0" layoutY="342.0" mnemonicParsing="false" onAction="#buttonDriveClick" prefHeight="35.0" prefWidth="108.0" text="Drive" />
+      <Button fx:id="buttonAddBoat" layoutX="926.0" layoutY="385.0" mnemonicParsing="false" onAction="#buttonAddBoatClick" prefHeight="35.0" prefWidth="108.0" text="Add" />
       <MenuBar layoutX="-7.0" layoutY="2.0" prefHeight="25.0" prefWidth="1054.0">
         <menus>
           <Menu mnemonicParsing="false" text="File">
@@ -42,5 +42,6 @@
           </Menu>
         </menus>
       </MenuBar>
+      <Button fx:id="buttonSort" layoutX="926.0" layoutY="301.0" mnemonicParsing="false" onAction="#buttonSortClick" prefHeight="35.0" prefWidth="108.0" text="Sort" />
    </children>
 </AnchorPane>

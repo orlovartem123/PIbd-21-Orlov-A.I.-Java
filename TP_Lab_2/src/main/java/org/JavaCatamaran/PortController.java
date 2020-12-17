@@ -42,7 +42,6 @@ public class PortController implements AddBoatListener {
 
     private FileChooser fileChooser = new FileChooser();
 
-    //****************************added logger*************************************
     private static Logger logger = Logger.getLogger(PortController.class);
 
     private void Draw() {
@@ -83,7 +82,6 @@ public class PortController implements AddBoatListener {
             alert.showAndWait();
             return;
         }
-        //****************************added nextline*************************************
         logger.info("Added port " + textFieldNewLevelName.getText());
         portCollection.AddParking(textFieldNewLevelName.getText());
         ReloadLevels();
@@ -97,7 +95,6 @@ public class PortController implements AddBoatListener {
         alert.setContentText("Delete port " + listBoxPorts.getSelectionModel().getSelectedItem() + "?");
         Optional<ButtonType> result = alert.showAndWait();
         if (result.get() == ButtonType.OK) {
-            //****************************added nextline*************************************
             logger.info("Deleted port " + listBoxPorts.getSelectionModel().getSelectedItem());
             portCollection.DelParking(listBoxPorts.getSelectionModel().getSelectedItem());
             ReloadLevels();
@@ -120,7 +117,6 @@ public class PortController implements AddBoatListener {
         stage.close();
     }
 
-
     @FXML
     void buttonTakeBoatClick() {
         if (!textFieldTake.getText().equals("") && isInt(textFieldTake) && listBoxPorts.getSelectionModel().getSelectedIndex() > -1) {
@@ -130,12 +126,10 @@ public class PortController implements AddBoatListener {
             try {
                 var boat = portCollection.getPort(listBoxPorts.getSelectionModel().getSelectedItem()).takeObject(Integer.parseInt(textFieldTake.getText()));
                 if (boat != null) {
-                    //****************************added nextline*************************************
                     logger.info("Seized transport " + boat + " from place " + textFieldTake.getText());
                     boatStack.push(boat);
                 }
                 Draw();
-                //****************************added catchers*************************************
             } catch (PortNotFoundException ex) {
                 logger.warn(ex);
                 alert.setTitle("Not Found");
@@ -175,7 +169,6 @@ public class PortController implements AddBoatListener {
             alert.setHeaderText(null);
             try {
                 if (portCollection.getPort(listBoxPorts.getSelectionModel().getSelectedItem()).append(boat)) {
-                    //****************************added next line*************************************
                     logger.info("Add transport " + boat);
                     Draw();
                 } else {
@@ -183,10 +176,14 @@ public class PortController implements AddBoatListener {
                     alert.setContentText("Cant moor transport");
                     alert.showAndWait();
                 }
-                //****************************added catchers*************************************
             } catch (PortOverflowException ex) {
                 logger.warn(ex);
                 alert.setTitle("Overflow");
+                alert.setContentText(ex.getMessage());
+                alert.showAndWait();
+            } catch (PortAlreadyHaveException ex) {
+                logger.warn(ex);
+                alert.setTitle("Already have");
                 alert.setContentText(ex.getMessage());
                 alert.showAndWait();
             } catch (Exception ex) {
@@ -215,7 +212,6 @@ public class PortController implements AddBoatListener {
             alert.setHeaderText(null);
             alert.setContentText("Done!");
             alert.showAndWait();
-            //****************************added catch*************************************
         } catch (IOException ex) {
             logger.error(ex);
             Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -252,11 +248,9 @@ public class PortController implements AddBoatListener {
             alert.setHeaderText(null);
             alert.setContentText("Done!");
             alert.showAndWait();
-            //****************************added next line*************************************
             logger.info("Loaded from file " + file.getName());
             ReloadLevels();
             Draw();
-            //****************************added catchers*************************************
         } catch (FileNotFoundException ex) {
             logger.warn(ex);
             alertError.setTitle("File not found");
@@ -301,7 +295,6 @@ public class PortController implements AddBoatListener {
                 alert.setContentText("Failed to save port");
                 alert.showAndWait();
             }
-            //****************************added catch*************************************
         } catch (Exception ex) {
             logger.fatal(ex);
         }
@@ -330,9 +323,17 @@ public class PortController implements AddBoatListener {
                 alert.setContentText("Failed to load port");
                 alert.showAndWait();
             }
-            //****************************added catch*************************************
         } catch (Exception ex) {
             logger.fatal(ex);
+        }
+    }
+
+    @FXML
+    void buttonSortClick() {
+        if (listBoxPorts.getSelectionModel().getSelectedIndex() > -1) {
+            portCollection.getPort(listBoxPorts.getSelectionModel().getSelectedItem()).sort();
+            Draw();
+            logger.info("Sorting levels");
         }
     }
 
@@ -342,7 +343,6 @@ public class PortController implements AddBoatListener {
         portCollection = new PortCollection((int) canvasPort.getWidth(), (int) canvasPort.getHeight());
         listBoxPorts.getSelectionModel().selectedIndexProperty().addListener((observable, oldValue, newValue) -> {
             if (!newValue.equals(-1)) {
-                //****************************added next line*************************************
                 logger.info("Went to port " + listBoxPorts.getSelectionModel().getSelectedItem());
                 Draw();
             }

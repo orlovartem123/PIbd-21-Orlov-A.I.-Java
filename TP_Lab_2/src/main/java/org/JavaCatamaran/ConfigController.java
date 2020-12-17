@@ -185,9 +185,10 @@ public class ConfigController {
     void initialize() {
         spinnerWeight.setEditable(true);
         spinnerSpeed.setEditable(true);
-        SpinnerValueFactory<Integer> factory = new SpinnerValueFactory.IntegerSpinnerValueFactory(100, 1000, 100);
-        spinnerSpeed.setValueFactory(factory);
-        spinnerWeight.setValueFactory(factory);
+        SpinnerValueFactory<Integer> factorySpeed = new SpinnerValueFactory.IntegerSpinnerValueFactory(100, 1000, 100);
+        SpinnerValueFactory<Integer> factoryWeight = new SpinnerValueFactory.IntegerSpinnerValueFactory(100, 1000, 100);
+        spinnerSpeed.setValueFactory(factorySpeed);
+        spinnerWeight.setValueFactory(factoryWeight);
         EventHandler<MouseEvent> handlerDragDetection = mouseEvent -> {
             Pane pane = (Pane) mouseEvent.getSource();
             Dragboard db = pane.startDragAndDrop(TransferMode.ANY);
