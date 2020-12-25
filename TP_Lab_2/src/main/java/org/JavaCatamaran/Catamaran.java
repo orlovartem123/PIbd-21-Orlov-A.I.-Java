@@ -5,6 +5,7 @@ import javafx.scene.paint.Color;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 public class Catamaran extends Boat implements Comparable<Boat> {
 
@@ -249,9 +250,16 @@ public class Catamaran extends Boat implements Comparable<Boat> {
     }
 
     @Override
-    public void printProperties() {
-        for (Object o : listProperties) {
-            System.out.println(o);
+    public boolean hasNext() {
+        return currentIndex < (listProperties.size() - 1);
+    }
+
+    @Override
+    public Object next() {
+        if (!hasNext()) {
+            throw new NoSuchElementException();
         }
+        currentIndex++;
+        return listProperties.get(currentIndex);
     }
 }

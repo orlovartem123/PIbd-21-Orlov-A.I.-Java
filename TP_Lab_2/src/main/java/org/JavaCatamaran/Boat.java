@@ -3,10 +3,12 @@ package org.JavaCatamaran;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.NoSuchElementException;
 
-public class Boat extends Vehicle implements Comparable<Boat> {
+public class Boat extends Vehicle implements Comparable<Boat>, Iterator, Iterable {
 
     private List<Object> listProperties = new LinkedList<>();
 
@@ -23,6 +25,8 @@ public class Boat extends Vehicle implements Comparable<Boat> {
     }
 
     protected final String separator = ";";
+
+    protected int currentIndex = -1;
 
     public Boat(int maxSpeed, float weight, Color mainColor) {
         MaxSpeed = maxSpeed;
@@ -164,9 +168,23 @@ public class Boat extends Vehicle implements Comparable<Boat> {
         return 0;
     }
 
-    public void printProperties() {
-        for (Object o : listProperties) {
-            System.out.println(o);
+    @Override
+    public Iterator iterator() {
+        currentIndex = -1;
+        return this;
+    }
+
+    @Override
+    public boolean hasNext() {
+        return currentIndex < (listProperties.size() - 1);
+    }
+
+    @Override
+    public Object next() {
+        if (!hasNext()) {
+            throw new NoSuchElementException();
         }
+        currentIndex++;
+        return listProperties.get(currentIndex);
     }
 }
