@@ -3,18 +3,40 @@ package org.JavaCatamaran;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 
-public class Boat extends Vehicle {
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.NoSuchElementException;
+
+public class Boat extends Vehicle implements Comparable<Boat>, Iterator, Iterable {
+
+    private List<Object> listProperties = new LinkedList<>();
 
     private int boatWidth = 104;//104
 
+    public int getBoatWidth() {
+        return boatWidth;
+    }
+
     private int boatHeight = 100;//100
 
+    public int getBoatHeight() {
+        return boatHeight;
+    }
+
     protected final String separator = ";";
+
+    protected int currentIndex = -1;
 
     public Boat(int maxSpeed, float weight, Color mainColor) {
         MaxSpeed = maxSpeed;
         Weight = weight;
         MainColor = mainColor;
+        listProperties.add(MaxSpeed);
+        listProperties.add(Weight);
+        listProperties.add(MainColor);
+        listProperties.add(this.boatHeight);
+        listProperties.add(this.boatWidth);
     }
 
     protected Boat(int maxSpeed, float weight, Color mainColor, int boatWidth, int
@@ -24,6 +46,11 @@ public class Boat extends Vehicle {
         MainColor = mainColor;
         this.boatWidth = boatWidth;
         this.boatHeight = boatHeight;
+        listProperties.add(MaxSpeed);
+        listProperties.add(Weight);
+        listProperties.add(MainColor);
+        listProperties.add(this.boatHeight);
+        listProperties.add(this.boatWidth);
     }
 
     public Boat(String info) {
@@ -33,6 +60,11 @@ public class Boat extends Vehicle {
             Weight = Float.parseFloat(strings[1]);
             MainColor = Color.valueOf(strings[2]);
         }
+        listProperties.add(MaxSpeed);
+        listProperties.add(Weight);
+        listProperties.add(MainColor);
+        listProperties.add(this.boatHeight);
+        listProperties.add(this.boatWidth);
     }
 
     public void MoveTransport(Direction direction) {
@@ -83,5 +115,76 @@ public class Boat extends Vehicle {
         result.append(separator);
         result.append(MainColor.toString());
         return result.toString();
+    }
+
+    public boolean equals(Boat other) {
+        if (other == null) {
+            return false;
+        }
+        if (!this.getClass().getName().equals(other.getClass().getName())) {
+            return false;
+        }
+        if (MaxSpeed != other.MaxSpeed) {
+            return false;
+        }
+        if (Weight != other.Weight) {
+            return false;
+        }
+        if (!MainColor.equals(other.MainColor)) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (!(obj instanceof Boat)) {
+            return false;
+        } else {
+            return equals((Boat) obj);
+        }
+    }
+
+    @Override
+    public int compareTo(Boat other) {
+        if (this.MaxSpeed != other.MaxSpeed) {
+            return this.MaxSpeed - other.MaxSpeed;
+        }
+        if (this.Weight != other.Weight) {
+            return (int) (this.Weight - other.Weight);
+        }
+        if (this.MainColor.getRed() != other.MainColor.getRed()) {
+            return (int) (this.MainColor.getRed() - other.MainColor.getRed());
+        }
+        if (this.MainColor.getGreen() != other.MainColor.getGreen()) {
+            return (int) (this.MainColor.getGreen() - other.MainColor.getGreen());
+        }
+        if (this.MainColor.getBlue() != other.MainColor.getBlue()) {
+            return (int) (this.MainColor.getBlue() - other.MainColor.getBlue());
+        }
+        return 0;
+    }
+
+    @Override
+    public Iterator iterator() {
+        currentIndex = -1;
+        return this;
+    }
+
+    @Override
+    public boolean hasNext() {
+        return currentIndex < (listProperties.size() - 1);
+    }
+
+    @Override
+    public Object next() {
+        if (!hasNext()) {
+            throw new NoSuchElementException();
+        }
+        currentIndex++;
+        return listProperties.get(currentIndex);
     }
 }

@@ -3,10 +3,12 @@ package org.JavaCatamaran;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 
+import java.util.Comparator;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
-public class Port<T extends ITransport, T1 extends IDrawing> {
+public class Port<T extends ITransport, T1 extends IDrawing> implements Iterable<T> {
 
     private final List<T> _places;
 
@@ -39,10 +41,12 @@ public class Port<T extends ITransport, T1 extends IDrawing> {
         return _places.get(index);
     }
 
-    public boolean append(T boat) throws PortOverflowException {
+    public boolean append(T boat) throws PortOverflowException, PortAlreadyHaveException {
         if (_places.size() >= _maxCount) {
-            //*****************************added next line***************************************
             throw new PortOverflowException();
+        }
+        if (_places.contains(boat)) {
+            throw new PortAlreadyHaveException();
         }
         _places.add(boat);
         return true;
@@ -50,7 +54,6 @@ public class Port<T extends ITransport, T1 extends IDrawing> {
 
     public T takeObject(int index) throws PortNotFoundException {
         if (index < -1 || index >= _places.size()) {
-            //*****************************added next line***************************************
             throw new PortNotFoundException(index);
         }
         T boat = _places.get(index);
@@ -95,5 +98,30 @@ public class Port<T extends ITransport, T1 extends IDrawing> {
             return null;
         }
         return _places.get(index);
+    }
+
+    public void sort() {
+        _places.sort((Comparator<T>) new BoatComparer());
+    }
+
+    @Override
+    public Iterator<T> iterator() {
+        return new PortIterator();
+
+    }
+
+    private class PortIterator implements Iterator<T> {
+
+        private int index;
+
+        @Override
+        public boolean hasNext() {
+            return index < _places.size();
+        }
+
+        @Override
+        public T next() {
+            return _places.get(index++);
+        }
     }
 }

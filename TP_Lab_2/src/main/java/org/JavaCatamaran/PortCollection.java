@@ -20,7 +20,7 @@ public class PortCollection {
     }
 
     public List<String> getKeys() {
-        return new LinkedList<String>(portStages.keySet());
+        return new LinkedList<>(portStages.keySet());
     }
 
     public void AddParking(String name) {
@@ -50,25 +50,21 @@ public class PortCollection {
         return null;
     }
 
-    //****************************changed returns type*************************************
     public void SaveData(String filename) throws IOException {
-        StringBuilder textToFile = new StringBuilder("");
+        StringBuilder textToFile = new StringBuilder();
         textToFile.append("PortCollection\n");
         for (int i = 0; i < portStages.size(); i++) {
             var level = portStages.get(getKeys().get(i));
             textToFile.append("Port" + separator + getKeys().get(i) + '\n');
-            ITransport boat = null;
-            for (int i1 = 0; (boat = level.GetNext(i1)) != null; i1++) {
-                if (boat != null) {
-                    if (boat instanceof Catamaran) {
-                        textToFile.append("Catamaran" + separator);
-                    } else {
-                        textToFile.append("Boat" + separator);
-                    }
-                    //Записываемые параметры
-                    textToFile.append(boat);
-                    textToFile.append('\n');
+            for (Vehicle boat : level) {
+                if (boat instanceof Catamaran) {
+                    textToFile.append("Catamaran" + separator);
+                } else {
+                    textToFile.append("Boat" + separator);
                 }
+                //Записываемые параметры
+                textToFile.append(boat);
+                textToFile.append('\n');
             }
         }
         File file = new File(filename);
@@ -80,9 +76,7 @@ public class PortCollection {
         fw.close();
     }
 
-    //****************************changed returns type*************************************
-    public void LoadData(String filename) throws IOException, PortOverflowException {
-        //****************************added throwing exceptions*****************************************
+    public void LoadData(String filename) throws IOException, PortOverflowException, PortAlreadyHaveException {
         File file = new File(filename);
         if (!file.exists()) {
             throw new FileNotFoundException();
@@ -91,6 +85,7 @@ public class PortCollection {
         BufferedReader reader = new BufferedReader(fr);
         String line = reader.readLine();
         if (line.contains("PortCollection")) {
+            //очищаем записи
             portStages.clear();
         } else {
             throw new ClassFormatError();
@@ -119,7 +114,6 @@ public class PortCollection {
         }
         reader.close();
     }
-
 
     public boolean savePort(String filename, String key) {
         if (!portStages.containsKey(key)) {
